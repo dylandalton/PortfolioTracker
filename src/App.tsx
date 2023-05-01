@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Table from './components/Table'
+import StockPriceContainer from './containers/StockPriceContainer';
 
-function App() {
+const stocks = ['GOOG', 'AAPL', 'META', 'MSFT', 'VICI']
+
+const App = () => {
+
+  const columns = [
+    {
+      Header: 'Stock',
+      accessor: 'stock'
+    },
+    {
+      Header: 'Price',
+      accessor: 'price'
+    }
+  ];
+
+  const tableData = stocks.map(stock => {
+    return {
+      stock: stock,
+      price: <StockPriceContainer stock={stock}/>,
+    }
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h1>Stock Market Portfolio</h1>
+        <div className="MyTable">
+          <Table columns={columns} data={tableData} />
+        </div>
     </div>
   );
 }
